@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jan 31 23:05:03 2021
-
-@author: lp1
-"""
-
 # -*- coding: utf-8 -*-
 """
 ##################################################
@@ -14,156 +6,230 @@ Created on Sun Jan 31 23:05:03 2021
 #
 # Name: Luis Perez
 #
-# Date: 1/31/2021
+# Date:3/8/2021
 # 
 ##################################################
 #
-# Sample Script for Assignment 2: 
-# Function Definitions
+# Sample Script for Midterm Exam: 
+# Module with Function Definitions
 #
 ##################################################
 """
+
+
+
+"""
+##################################################
+##################################################
+# Note: there should be no printing or calculations
+# in this script, aside from function definitions. 
+# Save those for a script that you might call
+# my_midterm_tests.py (but is not graded).
+##################################################
+##################################################
+"""
+
+
+
+
 
 
 ##################################################
 # Import Required Modules
 ##################################################
 
-import math
+import doctest
 
 
 ##################################################
 # Function Definitions
 ##################################################
 
+# Only function definitions here - no other calculations. 
+
 # Exercise 1
-def average(a, b):
-  return (a + b) / 2
+
+def in_budget(x: int, y: int, p_x: int, p_y: int, w: int) -> bool:
+    """
+    Preconditions: x, y, w >= 0 and p_x, p_y > 0
+    
+    Calculates returns a boolean indicator 
+    of whether the consumer's expenditure 
+    is less than or equal to wealth.
+    
+    >>> in_budget(3, 1, 10, 25, 100)
+    True
+    >>> in_budget(1, 5, 9, 15, 500)
+    True
+    >>> in_budget(10, 6, 9, 31, 100)
+    False
+    
+    """
+    if ((x * p_x + y * p_y) < w):
+      return True
+    else:
+      return False
 
 # Exercise 2
-def area_of_circle(r):
-  return math.pi * r ** 2 
+
+def calc_bundle(p_x: int, p_y: int, w: int, alpha: float) -> (float, float):
+    """
+    Preconditions: w >= 0 and p_x, p_y > 0 and 0 <= alpha <= 1
+    
+    Calculates calculates the consumer's optimal bundle of goods
+    for a consumer with Cobb-Douglass utility function.
+    
+    >>> calc_bundle(10, 20, 120, 1.0/3.0)
+    [4.0, 4.0]
+    >>> calc_bundle(5, 15, 32, 1.0/4.0)
+    [1.6, 1.6]
+    >>> calc_bundle(9, 18, 200, 2.0/5.0)
+    [8.9, 8.9]
+    
+    """
+    list = []
+    x = alpha / p_x * w
+    y = (1 - alpha) / p_y * w
+    list.append(round(x, 1))
+    list.append(round(x, 1))
+
+    return list
+
+
 
 # Exercise 3
-def volume_of_cylinder(r, h):
-  return area_of_circle(r) * h
+
+
+def y_solve(x_star: int, p_x: int, p_y: int, w: int) -> float:
+    """
+    Preconditions: w >= 0 and p_x, p_y > 0 and 0 <= x_star <= w/p_x
+    
+    Calculates the remaining expenditure on good y, 
+    given an expenditure x_star in good x.
+    
+    >>> y_solve(5, 5, 10, 100)
+    7.5
+    >>> y_solve(4, 3, 7, 80)
+    9.714285714285714
+    >>> y_solve(8, 10, 6, 120)
+    6.666666666666667
+    
+    """
+    
+    return (w - x_star * p_x) / p_y
+
 
 # Exercise 4
-def utility(x, y, α):
-  return x ** α * y ** (1 - α)
+
+
+def one_loop_bundle(p_x: int, p_y: int, w: int, alpha: float, step: float) -> (float, float):
+    """
+    Preconditions: w >= 0 and p_x, p_y > 0 and 0 <= alpha <= 1
+    
+    Calculates the consumer's optimal bundle of goods
+    for a consumer with Cobb-Douglass utility function.
+    It searches over a loop on x_star and assigns the remaining
+    wealth to y using y_solve.
+    
+    >>> one_loop_bundle(5, 10, 100, 0.25, 0.01)
+    [5.0, 7.5]
+    >>> function_name(arguments)
+    answer_you_expect
+    >>> function_name(arguments)
+    answer_you_expect
+    
+    """
+    
+    return None
+
+
 
 # Exercise 5
-def logit(x, β0, β1):
-  return math.exp(β0 + x * β1) / (1 + math.exp(β0 + x * β1))
 
 
-##################################################
-# Run the examples to test these functions
-##################################################
+def util_in_budget(x: type) -> type:
+    """Calculates the value of the Cobb-Douglass utility
+    function for consumption goods x and y with exponent alpha.
+    It restricts x and y to non-negative values and 
+    alpha to the unit interval.
+    It also restricts the calculation to bundles [x, y] within budget w, 
+    otherwise it assigns zero.
+    
+    >>> util_in_budget(4, 4, 10, 20, 120, 1.0/3.0)
+    4.0
+    >>> function_name(arguments)
+    answer_you_expect
+    >>> function_name(arguments)
+    answer_you_expect
+    
+    """
+    
+    return None
 
 
-# Test the examples and print the results. 
 
 
-print("#" + 50*"-")
-print("Testing my Examples for Exercise 1.")
 
-print("#" + 50*"-")
-print("Exercise 1, Example 1:")
-print("Evaluating average(10,20)")
-print("Expected: " + str(15.0))
-print("Got: " + str(average(10,20)))
+# Exercise 6
 
-print("#" + 50*"-")
-print("Exercise 1, Example 2:")
-print("Evaluating average(2.5, 3.0)")
-print("Expected: " + str(2.75))
-print("Got: " + str(average(2.5, 3.0)))
 
-print("#" + 50*"-")
-print("Exercise 1, Example 3:")
-print("Evaluating average(50.25,99)")
-print("Expected: " + str(74.625))
-print("Got: " + str(average(50.25,99)))
+def two_loop_bundle(x: type) -> type:
+    """
+    Preconditions: w >= 0 and p_x, p_y > 0 and 0 <= alpha <= 1
+    
+    Calculates the consumer's optimal bundle of goods
+    for a consumer with Cobb-Douglass utility function.
+    It searches over two loops on x_star and y_star.
+    
+    Note that there is no error handling
+    because that is taken care of in util_in_budget() and np.arange(). 
+    
+    >>> two_loop_bundle(10, 25, 100, 0.5, 0.01)
+    [5.0, 2.0]
+    >>> function_name(arguments)
+    answer_you_expect
+    >>> function_name(arguments)
+    answer_you_expect
+    
+    """
+    
+    return None
 
-print("#" + 50*"-")
-print("Testing my Examples for Exercise 2.")
-print("#" + 50*"-")
-print("Exercise 2, Example 1:")
-print("Evaluating area_of_circle(3)")
-print("Expected: " + str(28.274))
-print("Got: " + str(area_of_circle(3)))
-print("#" + 50*"-")
-print("Exercise 2, Example 2:")
-print("Evaluating area_of_circle(6.9)")
-print("Expected: " + str(149.5712))
-print("Got: " + str(area_of_circle(6.9)))
-print("#" + 50*"-")
-print("Exercise 2, Example 3:")
-print("Evaluating area_of_circle(11.8)")
-print("Expected: " + str(437.4354))
-print("Got: " + str(area_of_circle(11.8)))
 
-print("#" + 50*"-")
-print("Testing my Examples for Exercise 3.")
-print("#" + 50*"-")
-print("Exercise 3, Example 1:")
-print("Evaluating volume_of_cylinder(2, 5)")
-print("Expected: " + str(62.8319))
-print("Got: " + str(volume_of_cylinder(2, 5)))
 
-print("#" + 50*"-")
-print("Exercise 3, Example 2:")
-print("Evaluating volume_of_cylinder(3, 9)")
-print("Expected: " + str(254.469))
-print("Got: " + str(volume_of_cylinder(3, 9)))
+# Only function definitions above this point. 
 
-print("#" + 50*"-")
-print("Exercise 3, Example 3:")
-print("Evaluating volume_of_cylinder(4.5, 13.5)")
-print("Expected: " + str(858.8329))
-print("Got: " + str(volume_of_cylinder(4.5, 13.5)))
 
-print("#" + 50*"-")
-print("Testing my Examples for Exercise 4.")
 
-print("#" + 50*"-")
-print("Exercise 4, Example 1:")
-print("Evaluating utility(2, 4, 2)")
-print("Expected: " + str(1.0))
-print("Got: " + str(utility(2,4,2)))
-print("#" + 50*"-")
-print("Exercise 4, Example 2:")
-print("Evaluating utility(2, 4, 2)")
-print("Expected: " + str(1.1628))
-print("Got: " + str(utility(5,6,9)))
-print("#" + 50*"-")
-print("Exercise 4, Example 3:")
-print("Evaluating utility(7.9, 2.3, 3.8)")
-print("Expected: " + str(250.1180))
-print("Got: " + str(utility(7.9, 2.3, 3.8)))
+doctest.testmod()
 
-print("#" + 50*"-")
-print("Testing my Examples for Exercise 5.")
 
-print("#" + 50*"-")
-print("Exercise 5, Example 1:")
-print("Evaluating logit(8, 3, 5)")
-print("Expected: " + str(1.0))
-print("Got: " + str(logit(8, 3, 5)))
-print("#" + 50*"-")
+# Question 2: Test using the doctest module. 
 
-print("Exercise 5, Example 2:")
-print("Evaluating logit(2.25, 6, 9.5)")
-print("Expected: " + str(0.9999))
-print("Got: " + str(logit(2.25, 6, 9.5)))
-print("#" + 50*"-")
 
-print("Exercise 5, Example 3:")
-print("Evaluating logit(36, 79.5, 2.01)")
-print("Expected: " + str(1.0))
-print("Got: " + str(logit(36, 79.5, 2.01)))
-print("#" + 50*"-")
+# Make sure to include exampes in your docstrings above
+# with the proper formatting. 
+
+# Test all functions with three examples each. 
+
+# Choose good examples that will test interesting cases. 
+# Make sure they all work correctly. 
+
+
+# Add code so that the tests are implemented below 
+# -- but only when the script is run,
+# not when it is imported. 
+
+
+
+
+
+
+
+
+
+
+
 
 ##################################################
 # End
